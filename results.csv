@@ -1,0 +1,7 @@
+Model,Parameters,Accuracy,Mean Score,Std Score
+NB,MultinomialNB(alpha=10.0),0.57047619,0.581047619,0.00702054
+K Nearest Neighbour,"KNeighborsClassifier(metric='manhattan', n_neighbors=9)",0.746904762,0.752285714,0.010572715
+Decision Tree,DecisionTreeClassifier(max_depth=4),0.801190476,0.795095238,0.0065847
+Gradient Booster,"GradientBoostingClassifier(n_estimators=200, random_state=42)",0.79952381,0.811095238,0.006861275
+Random Forest,"{'max_depth': None, 'min_samples_leaf': 2, 'min_samples_split': 5, 'n_estimators': 200}",0.815714286,0.810714286,0.007968902
+Logistic Regression,"LogisticRegression(C=1, max_iter=10000, solver='saga')",0.789047619,0.790047619,0.00582998
