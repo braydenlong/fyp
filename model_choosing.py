@@ -97,11 +97,10 @@ kf = KFold(n_splits=10, shuffle=True, random_state=42)
 # #SVM <----TO DELETE??--->
 
 svm = SVC()
-param_grid = {'C': [0.1],
-              'kernel': ['linear']}
 
-# param_grid = {'C': [0.1, 1, 10, 100],'gamma': [0.1, 1, 10, 100],
-#               'kernel': ['linear', 'rbf', 'poly', 'sigmoid']}
+
+param_grid = {'C': [0.1, 1, 10, 100],'gamma': [0.1, 1, 10, 100],
+              'kernel': ['linear', 'rbf', 'poly', 'sigmoid']}
 
 grid_search = GridSearchCV(svm, param_grid, cv=kf)
 grid_search.fit(X_train, y_train)
@@ -337,56 +336,48 @@ joblib.dump(best_params, 'best_params/svm_best_params.pkl')
 
 #NEURAL NETWORKS
 #MLP
-# param_grid = {
-#     'hidden_layer_sizes': [(50,)],
-#     'activation': ['logistic'],
-#     'alpha': [0.0001],
-#     'solver': ['adam'],
-#     'learning_rate': ['constant'],
-#     'batch_size': [32],
-#     'max_iter': [500]
-# }
-# param_grid = {
-#     'hidden_layer_sizes': [(50,), (100,)],
-#     'activation': ['logistic', 'relu'],
-#     'alpha': [0.0001, 0.001, 0.01],
-#     'solver': ['adam', 'sgd'],
-#     'learning_rate': ['constant', 'adaptive'],
-#     'batch_size': [32, 64, 128],
-#     'max_iter': [500]
-# }
 
-# mlp = MLPClassifier()
-# grid_search = GridSearchCV(mlp, param_grid, cv=kf)
-# grid_search.fit(X_train, y_train)
-# best_mlp = grid_search.best_estimator_
-# y_pred = best_mlp.predict(X_valid)
+param_grid = {
+    'hidden_layer_sizes': [(10,), (50,), (100,)],
+    'activation': ['logistic', 'relu'],
+    'alpha': [0.0001, 0.001, 0.01],
+    'solver': ['adam', 'sgd'],
+    'learning_rate': ['constant', 'adaptive'],
+    'batch_size': [32, 64, 128],
+    'max_iter': [500, 1000, 2000]
+}
 
-# # mlp.fit(X_train, y_train)
-# # y_pred = mlp.predict(X_valid)
-# print("Multi Layer Perceptron")
-# print(classification_report(y_valid, y_pred))
-# print("Accuracy: ", accuracy_score(y_valid, y_pred))
+mlp = MLPClassifier()
+grid_search = GridSearchCV(mlp, param_grid, cv=kf)
+grid_search.fit(X_train, y_train)
+best_mlp = grid_search.best_estimator_
+y_pred = best_mlp.predict(X_valid)
 
-# scores = cross_val_score(mlp, X, y, cv=kf)
-# mean_score = np.mean(scores)
-# std_score = np.std(scores)
+# mlp.fit(X_train, y_train)
+# y_pred = mlp.predict(X_valid)
+print("Multi Layer Perceptron")
+print(classification_report(y_valid, y_pred))
+print("Accuracy: ", accuracy_score(y_valid, y_pred))
 
-# print(f"Mean accuracy score: {mean_score:.2f}")
-# print(f"Standard deviation: {std_score:.2f}")
-# print("************************")
+scores = cross_val_score(mlp, X, y, cv=kf)
+mean_score = np.mean(scores)
+std_score = np.std(scores)
 
-# with open('results.csv', 'a', newline='') as csvfile:
-#     fieldnames = ['Model', 'Parameters', 'Accuracy', 'Mean Score', 'Std Score']
-#     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-#     writer.writerow({
-#         'Model': 'MLP',
-#         'Parameters': str(best_mlp),
-#         'Accuracy': accuracy_score(y_valid, y_pred),
-#         'Mean Score': mean_score,
-#         'Std Score': std_score
-#     })
-# joblib.dump(best_mlp, 'mlp_best_params.pkl')
+print(f"Mean accuracy score: {mean_score:.2f}")
+print(f"Standard deviation: {std_score:.2f}")
+print("************************")
+
+with open('results.csv', 'a', newline='') as csvfile:
+    fieldnames = ['Model', 'Parameters', 'Accuracy', 'Mean Score', 'Std Score']
+    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+    writer.writerow({
+        'Model': 'MLP',
+        'Parameters': str(best_mlp),
+        'Accuracy': accuracy_score(y_valid, y_pred),
+        'Mean Score': mean_score,
+        'Std Score': std_score
+    })
+joblib.dump(best_mlp, 'best_params/mlp_best_params.pkl')
 
 
 #feature ranking and pruning via sensitivity analysis
