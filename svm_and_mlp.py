@@ -131,7 +131,7 @@ best_mlp = grid_search.best_estimator_
 #best_mlp.to(device)
 
 y_pred_tensor = best_mlp.predict(X_valid_tensor)
-y_pred = y_pred_tensor.cpu().numpy()
+y_pred = y_pred_tensor.numpy()
 
 # mlp.fit(X_train, y_train)
 # y_pred = mlp.predict(X_valid)
