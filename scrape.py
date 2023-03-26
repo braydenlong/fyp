@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 from urllib.parse import urlencode
 import csv
+from random import randint
 
 def get_reviews():
     pdt_url = 'https://www.amazon.com/Beats-Fit-Pro-Cancelling-Built/product-reviews/B09JL41N9C/ref=cm_cr_getr_d_paging_btm_next_{}?ie=UTF8&reviewerType=all_reviews&pageNumber={}'
@@ -16,11 +17,11 @@ def get_reviews():
             AppleWebKit/537.36 (KHTML, like Gecko) \
             Chrome/90.0.4430.212 Safari/537.36',
             'Accept-Language': 'en-US, en;q=0.5'})
-    current_page = 10
+    current_page = 1
     while True:
         print("Current Page:", current_page)
         current_url = pdt_url.format(current_page, current_page)
-        time.sleep(10)
+        time.sleep(randint(10,100))
         page = requests.get(current_url, headers = HEADERS)
         soup = BeautifulSoup(page.content, 'html.parser')
         #print(soup)
@@ -47,7 +48,7 @@ def get_reviews():
     review_list = [r for r in review_list if r]
     df_amazon =  pd.DataFrame(review_list)
     #df_amazon.to_csv('pdt_amazon_reviews.csv', index = False)
-    with open('pdt_amazon_reviews.csv', 'a') as f:
+    with open('beats_amzn_reviews.csv', 'a') as f:
         df_amazon.to_csv(f, header=False, index=False)
 
 get_reviews()

@@ -1,0 +1,14 @@
+NB,MultinomialNB(),0.56452381,0.566095238,0.007718987
+K Nearest Neighbour,"KNeighborsClassifier(metric='manhattan', n_neighbors=9)",0.572380952,0.572285714,0.011923414
+Decision Tree,DecisionTreeClassifier(max_depth=4),0.598571429,0.588333333,0.014902936
+Gradient Booster,"GradientBoostingClassifier(max_depth=4, n_estimators=200, random_state=42)",0.646190476,0.644238095,0.015323348
+Random Forest,"{'max_depth': 30, 'min_samples_leaf': 4, 'min_samples_split': 10, 'n_estimators': 200}",0.651190476,0.635285714,0.012130152
+Logistic Regression,"LogisticRegression(C=10, max_iter=10000, solver='saga')",0.585714286,0.584952381,0.008223632
+Linear SVM,"LinearSVC(C=1, dual=False, max_iter=10000, penalty='l1')",0.629047619,0.621809524,0.013899216
+Gaussian SVM,"SVC(C=1, gamma=0.1)",0.597142857,0.604238095,0.012536477
+MLP1,"MLPClassifier(activation='logistic', batch_size=32, hidden_layer_sizes=(50,),
+              max_iter=500)",0.638809524,0.649904762,0.013156653
+MLP2,"MLPClassifier(activation='logistic', batch_size=64, hidden_layer_sizes=(50,),
+              learning_rate='adaptive', max_iter=1000)",0.651904762,0.648571429,0.014043987
+MLP3,"MLPClassifier(activation='logistic', batch_size=32, learning_rate='adaptive',
+              max_iter=500)",0.6471428571428571,0.644,0.014440746081566926
